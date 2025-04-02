@@ -1,4 +1,5 @@
 // lib/services/data_service.dart
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:csxi_app/models/menu_item.dart';
 import 'package:csxi_app/models/analytics_data.dart';
@@ -8,6 +9,61 @@ import 'dart:math';
 
 class DataService {
   static final Random _random = Random();
+  // Add this method to the DataService class
+
+   static dynamic getUserPerformanceData() {
+    // Replace with actual logic to fetch user performance data
+    return [
+      {'date': '2023-01-01', 'value': 10},
+      {'date': '2023-01-02', 'value': 15},
+      {'date': '2023-01-03', 'value': 20},
+    ];
+  }
+  static List<dynamic> getUserStats() {
+    // Replace with actual logic to fetch user stats
+    return [
+      {'label': 'Tasks Completed', 'value': '120', 'color': Colors.green},
+      {'label': 'Hours Worked', 'value': '80', 'color': Colors.blue},
+      {'label': 'Projects', 'value': '5', 'color': Colors.orange},
+    ];
+  }
+  static List<dynamic> getMessages() {
+    return [
+      {
+        'senderName': 'John Doe',
+        'lastMessage': 'Hello!',
+        'senderAvatar': 'https://example.com/avatar1.png',
+        'time': '10:30 AM',
+        'unread': 2,
+        'isImportant': false,
+        'conversation': [
+          {'text': 'Hello!', 'time': '10:30 AM', 'sender': 'John Doe'},
+          {'text': 'Hi!', 'time': '10:31 AM', 'sender': 'me'},
+        ],
+      },
+      // Add more mock messages here
+    ];
+  }
+
+  static List<dynamic> getUserActivities() {
+    // Replace with actual logic to fetch user activities
+    return [
+      {
+        'title': 'Logged in',
+        'description': 'User logged into the system',
+        'time': '2 hours ago',
+        'icon': Icons.login,
+        'color': Colors.green,
+      },
+      {
+        'title': 'Updated Profile',
+        'description': 'User updated their profile information',
+        'time': '1 day ago',
+        'icon': Icons.edit,
+        'color': Colors.blue,
+      },
+    ];
+  }
 
   // Generate menu items
   static List<MenuItem> getMenuItems() {
@@ -54,6 +110,7 @@ class DataService {
   // Get user data
   static User getUser() {
     return User(
+      id: '1',
       name: 'Alex Johnson',
       email: 'alex.johnson@example.com',
       avatarUrl:
@@ -77,10 +134,10 @@ class DataService {
     return List.generate(
       categories.length,
       (index) => BarChartData(
-        category: categories[index],
-        value: 50 + _random.nextDouble() * 50,
-        color: colors[index],
-      ),
+          // category: categories[index],
+          // value: 50 + _random.nextDouble() * 50,
+          // color: colors[index],
+          ),
     );
   }
 
@@ -102,10 +159,10 @@ class DataService {
     return List.generate(
       titles.length,
       (index) => PieChartData(
-        title: titles[index],
-        value: 15 + _random.nextDouble() * 35,
-        color: colors[index],
-      ),
+          // title: titles[index],
+          // value: 15 + _random.nextDouble() * 35,
+          // color: colors[index],
+          ),
     );
   }
 
@@ -116,14 +173,14 @@ class DataService {
     return List.generate(
       30,
       (index) => LineChartData(
-        date: DateTime(now.year, now.month, now.day - (29 - index)),
-        value: 100 + sin(index * 0.2) * 50 + _random.nextDouble() * 10,
-      ),
+          // date: DateTime(now.year, now.month, now.day - (29 - index)),
+          // value: 100 + sin(index * 0.2) * 50 + _random.nextDouble() * 10,
+          ),
     );
   }
 
   // Generate task data
-  static List<TaskData> getTaskData() {
+  static List<dynamic> getTaskData() {
     final List<String> titles = ['UI Design', 'Frontend', 'Backend', 'Testing'];
     final List<Color> colors = [
       Colors.blue,
@@ -180,4 +237,20 @@ class DataService {
 
     return activities;
   }
+}
+
+class TaskData {
+  final String title;
+  final int completed;
+  final int total;
+  final double percentage;
+  final Color color;
+
+  TaskData({
+    required this.title,
+    required this.completed,
+    required this.total,
+    required this.percentage,
+    required this.color,
+  });
 }

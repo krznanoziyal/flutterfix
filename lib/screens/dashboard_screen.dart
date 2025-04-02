@@ -103,7 +103,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 ),
                 const SizedBox(height: 16),
                 CustomLineChart(
-                  data: lineChartData,
+                  data: [],
                   title: 'Performance Trends',
                   lineColor: Theme.of(context).primaryColor,
                 ),
@@ -112,7 +112,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   CustomBarChart(data: barChartData, title: 'Monthly Revenue'),
                   CustomPieChart(
                     data: pieChartData,
-                    title: 'Sales Distribution',
+                    title: 'Sales Distribution', sections: [],
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -209,7 +209,8 @@ class _DashboardScreenState extends State<DashboardScreen>
           completed: task.completed,
           total: task.total,
           percentage: task.percentage,
-          color: task.color,
+          color: task.color, value: '', change: '', isPositive: true, icon: task.icon,
+          
         );
       },
     );

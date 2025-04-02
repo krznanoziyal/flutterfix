@@ -8,6 +8,9 @@ class StatCard extends StatelessWidget {
   final int total;
   final double percentage;
   final Color color;
+  final String value, change;
+  final bool isPositive;
+  final IconData icon;
 
   const StatCard({
     super.key,
@@ -16,6 +19,10 @@ class StatCard extends StatelessWidget {
     required this.total,
     required this.percentage,
     required this.color,
+    required this.value,
+    required this.change,
+    required this.isPositive,
+    required this.icon,
   });
 
   @override

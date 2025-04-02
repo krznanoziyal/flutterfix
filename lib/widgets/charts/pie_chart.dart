@@ -7,7 +7,7 @@ class CustomPieChart extends StatefulWidget {
   final List<PieChartData> data;
   final String title;
 
-  const CustomPieChart({super.key, required this.data, required this.title});
+  const CustomPieChart({super.key, required this.data, required this.title, required List<PieChartSectionData> sections});
 
   @override
   State<CustomPieChart> createState() => _CustomPieChartState();
@@ -93,9 +93,10 @@ class _CustomPieChartState extends State<CustomPieChart> {
           return MapEntry(
             index,
             PieChartSectionData(
-              color: data.color,
-              value: data.value,
-              title: '${data.value.toStringAsFixed(1)}%',
+              color: Colors.amber,
+              value: 312,
+              // title: '${data.value.toStringAsFixed(1)}%',
+              title: "",
               radius: radius,
               titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -120,13 +121,13 @@ class _CustomPieChartState extends State<CustomPieChart> {
               height: 16,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: data.color,
+                color: Colors.blueAccent,
               ),
             ),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                data.title,
+                "hello",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
@@ -136,3 +137,4 @@ class _CustomPieChartState extends State<CustomPieChart> {
     }).toList();
   }
 }
+

@@ -47,8 +47,8 @@ class _ProjectsScreenState extends State<ProjectsScreen>
   Widget build(BuildContext context) {
     final user = DataService.getUser();
     final menuItems = DataService.getMenuItems();
-    final projects = DataService.getProjects();
-    final projectsChartData = DataService.getProjectChartData();
+    // final projects = DataService.getProjects();
+    // final projectsChartData = DataService.getProjectChartData();
 
     return Scaffold(
       key: _scaffoldKey,
@@ -92,11 +92,11 @@ class _ProjectsScreenState extends State<ProjectsScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildProjectSummary(projects),
+                  // _buildProjectSummary(projects),
                   const SizedBox(height: 24),
                   _buildFilterRow(),
                   const SizedBox(height: 16),
-                  Expanded(child: _buildProjectList(projects)),
+                  // Expanded(child: _buildProjectList(projects)),
                 ],
               ),
             ),
@@ -197,7 +197,7 @@ class _ProjectsScreenState extends State<ProjectsScreen>
             SizedBox(
               height: 200,
               child: CustomBarChart(
-                data: DataService.getProjectChartData(),
+                data: [],
                 title: 'Project Completion Rate',
               ),
             ),

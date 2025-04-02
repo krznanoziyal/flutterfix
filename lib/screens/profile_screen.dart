@@ -39,8 +39,8 @@ class _ProfileScreenState extends State<ProfileScreen>
     _nameController = TextEditingController(text: user.name);
     _emailController = TextEditingController(text: user.email);
     _roleController = TextEditingController(text: user.role);
-    _departmentController = TextEditingController(text: user.department);
-    _phoneController = TextEditingController(text: user.phone);
+    // _departmentController = TextEditingController(text: user.department);
+    // _phoneController = TextEditingController(text: user.phone);
   }
 
   @override

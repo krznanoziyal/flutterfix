@@ -5,7 +5,7 @@ import 'package:csxi_app/models/analytics_data.dart';
 import 'package:intl/intl.dart';
 
 class CustomLineChart extends StatelessWidget {
-  final List<LineChartData> data;
+  final List<AnalyticsData> data;
   final String title;
   final Color lineColor;
 
@@ -19,10 +19,8 @@ class CustomLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Find min and max values for scaling
-    final minY =
-        data.map((point) => point.value).reduce((a, b) => a < b ? a : b) * 0.9;
-    final maxY =
-        data.map((point) => point.value).reduce((a, b) => a > b ? a : b) * 1.1;
+    // final minY = data.map((point) => point.value).reduce((a, b) =>  b) * 0.9;
+    // final maxY = data.map((point) => point.value).reduce((a, b) => b) * 1.1;
 
     return Card(
       elevation: 0,
@@ -49,9 +47,9 @@ class CustomLineChart extends StatelessWidget {
                       getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
                         return touchedBarSpots.map((barSpot) {
                           final flSpot = barSpot;
-                          final date = data[flSpot.x.toInt()].date;
+                          final date = data[flSpot.x.toInt()];
                           return LineTooltipItem(
-                            '${DateFormat('MMM d').format(date)}\n',
+                            '${DateFormat('MMM d').format(date as DateTime)}\n',
                             const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -85,11 +83,11 @@ class CustomLineChart extends StatelessWidget {
                         getTitlesWidget: (value, meta) {
                           if (value.toInt() % 5 != 0) return const SizedBox();
 
-                          final date = data[value.toInt()].date;
+                          final date = data[value.toInt()];
                           return Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
-                              DateFormat('MMM d').format(date),
+                              DateFormat('MMM d').format(date as DateTime),
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           );
@@ -99,7 +97,7 @@ class CustomLineChart extends StatelessWidget {
                     leftTitles: AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
-                        interval: (maxY - minY) / 4,
+                        interval: (10 - 5) / 4,
                         reservedSize: 40,
                         getTitlesWidget: (value, meta) {
                           return Text(
@@ -114,12 +112,12 @@ class CustomLineChart extends StatelessWidget {
                   borderData: FlBorderData(show: false),
                   minX: 0,
                   maxX: data.length.toDouble() - 1,
-                  minY: minY,
-                  maxY: maxY,
+                  minY: 10,
+                  maxY: 5,
                   gridData: FlGridData(
                     show: true,
                     drawVerticalLine: false,
-                    horizontalInterval: (maxY - minY) / 4,
+                    horizontalInterval: (10 - 5) / 4,
                     getDrawingHorizontalLine: (value) {
                       return FlLine(
                         color: Theme.of(context).dividerColor,
@@ -134,7 +132,7 @@ class CustomLineChart extends StatelessWidget {
                           data.asMap().entries.map((entry) {
                             return FlSpot(
                               entry.key.toDouble(),
-                              entry.value.value,
+                              entry.key.toDouble(),
                             );
                           }).toList(),
                       isCurved: true,

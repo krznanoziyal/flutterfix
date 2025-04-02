@@ -1,6 +1,7 @@
 // lib/widgets/charts/bar_chart.dart
-import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart' as fl_chart;
 import 'package:csxi_app/models/analytics_data.dart';
 
 class CustomBarChart extends StatelessWidget {
@@ -38,7 +39,7 @@ class CustomBarChart extends StatelessWidget {
                       tooltipBgColor: Colors.grey.shade800,
                       getTooltipItem: (group, groupIndex, rod, rodIndex) {
                         return BarTooltipItem(
-                          '${data[groupIndex].category}\n',
+                          '${data[groupIndex]}\n',
                           TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -71,7 +72,7 @@ class CustomBarChart extends StatelessWidget {
                           return Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
-                              data[value.toInt()].category,
+                              "100",
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           );
@@ -103,8 +104,8 @@ class CustomBarChart extends StatelessWidget {
                           x: index,
                           barRods: [
                             BarChartRodData(
-                              toY: item.value,
-                              color: item.color,
+                              toY: item.baselineY,
+                              color: item.backgroundColor,
                               width: 20,
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(6),

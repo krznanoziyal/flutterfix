@@ -31,7 +31,7 @@ class _MessagesScreenState extends State<MessagesScreen>
       duration: const Duration(milliseconds: 1200),
     )..forward();
     _searchController = TextEditingController();
-    _filteredMessages = DataService.getMessages();
+    // _filteredMessages = DataService.getMessages();
   }
 
   @override

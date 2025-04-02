@@ -26,59 +26,59 @@ class _TasksScreenState extends State<TasksScreen> with SingleTickerProviderStat
       dueDate: DateTime.now().add(const Duration(days: 1)),
       priority: Priority.high,
       isCompleted: false,
-      assignee: User(id: '1', name: 'John Doe', email: 'john@example.com', avatarUrl: 'https://via.placeholder.com/150'),
+      assignee: User(id: '1', name: 'John Doe', email: 'john@example.com', avatarUrl: 'https://via.placeholder.com/150', role: ''),
       tags: ['Design', 'Dashboard'],
     ),
-    Task(
-      id: '2',
-      title: 'Fix navigation bug',
-      description: 'Fix the sidebar navigation toggle issue',
-      dueDate: DateTime.now(),
-      priority: Priority.medium,
-      isCompleted: false,
-      assignee: User(id: '2', name: 'Jane Smith', email: 'jane@example.com', avatarUrl: 'https://via.placeholder.com/150'),
-      tags: ['Bug', 'Navigation'],
-    ),
-    Task(
-      id: '3',
-      title: 'Create API documentation',
-      description: 'Document all API endpoints for developers',
-      dueDate: DateTime.now().add(const Duration(days: 3)),
-      priority: Priority.medium,
-      isCompleted: false,
-      assignee: User(id: '1', name: 'John Doe', email: 'john@example.com', avatarUrl: 'https://via.placeholder.com/150'),
-      tags: ['Documentation', 'API'],
-    ),
-    Task(
-      id: '4',
-      title: 'Unit testing for authentication module',
-      description: 'Write unit tests for login and registration flows',
-      dueDate: DateTime.now().add(const Duration(days: 2)),
-      priority: Priority.high,
-      isCompleted: false,
-      assignee: User(id: '3', name: 'Alex Johnson', email: 'alex@example.com', avatarUrl: 'https://via.placeholder.com/150'),
-      tags: ['Testing', 'Authentication'],
-    ),
-    Task(
-      id: '5',
-      title: 'Optimize database queries',
-      description: 'Improve performance of slow queries',
-      dueDate: DateTime.now().subtract(const Duration(days: 1)),
-      priority: Priority.critical,
-      isCompleted: true,
-      assignee: User(id: '4', name: 'Sarah Williams', email: 'sarah@example.com', avatarUrl: 'https://via.placeholder.com/150'),
-      tags: ['Database', 'Performance'],
-    ),
-    Task(
-      id: '6',
-      title: 'Weekly team meeting',
-      description: 'Discuss project progress and roadblocks',
-      dueDate: DateTime.now(),
-      priority: Priority.low,
-      isCompleted: false,
-      assignee: User(id: '1', name: 'John Doe', email: 'john@example.com', avatarUrl: 'https://via.placeholder.com/150'),
-      tags: ['Meeting', 'Team'],
-    ),
+    // Task(
+    //   id: '2',
+    //   title: 'Fix navigation bug',
+    //   description: 'Fix the sidebar navigation toggle issue',
+    //   dueDate: DateTime.now(),
+    //   priority: Priority.medium,
+    //   isCompleted: false,
+    //   assignee: User(id: '2', name: 'Jane Smith', email: 'jane@example.com', avatarUrl: 'https://via.placeholder.com/150'),
+    //   tags: ['Bug', 'Navigation'],
+    // ),
+    // Task(
+    //   id: '3',
+    //   title: 'Create API documentation',
+    //   description: 'Document all API endpoints for developers',
+    //   dueDate: DateTime.now().add(const Duration(days: 3)),
+    //   priority: Priority.medium,
+    //   isCompleted: false,
+    //   assignee: User(id: '1', name: 'John Doe', email: 'john@example.com', avatarUrl: 'https://via.placeholder.com/150'),
+    //   tags: ['Documentation', 'API'],
+    // ),
+    // Task(
+    //   id: '4',
+    //   title: 'Unit testing for authentication module',
+    //   description: 'Write unit tests for login and registration flows',
+    //   dueDate: DateTime.now().add(const Duration(days: 2)),
+    //   priority: Priority.high,
+    //   isCompleted: false,
+    //   assignee: User(id: '3', name: 'Alex Johnson', email: 'alex@example.com', avatarUrl: 'https://via.placeholder.com/150'),
+    //   tags: ['Testing', 'Authentication'],
+    // ),
+    // Task(
+    //   id: '5',
+    //   title: 'Optimize database queries',
+    //   description: 'Improve performance of slow queries',
+    //   dueDate: DateTime.now().subtract(const Duration(days: 1)),
+    //   priority: Priority.critical,
+    //   isCompleted: true,
+    //   assignee: User(id: '4', name: 'Sarah Williams', email: 'sarah@example.com', avatarUrl: 'https://via.placeholder.com/150'),
+    //   tags: ['Database', 'Performance'],
+    // ),
+    // Task(
+    //   id: '6',
+    //   title: 'Weekly team meeting',
+    //   description: 'Discuss project progress and roadblocks',
+    //   dueDate: DateTime.now(),
+    //   priority: Priority.low,
+    //   isCompleted: false,
+    //   assignee: User(id: '1', name: 'John Doe', email: 'john@example.com', avatarUrl: 'https://via.placeholder.com/150'),
+    //   tags: ['Meeting', 'Team'],
+    // ),
   ];
 
   @override
@@ -144,9 +144,11 @@ class _TasksScreenState extends State<TasksScreen> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     bool isDarkMode = theme.brightness == Brightness.dark;
+    User user = User(id: '1', name: 'John Doe', email: 'john@example.com', avatarUrl: 'https://via.placeholder.com/150', role: '');
+
     
     return Scaffold(
-      appBar: CustomAppBar(title: 'Tasks'),
+      appBar: CustomAppBar(title: 'Tasks', user: user, onMenuTap: (){} ,),
       body: Column(
         children: [
           Padding(
@@ -612,11 +614,10 @@ class _TasksScreenState extends State<TasksScreen> with SingleTickerProviderStat
                         dueDate: selectedDate,
                         priority: selectedPriority,
                         isCompleted: false,
-                        assignee: User(id: '1', name
-                        assignee: User(id: '1', name: 'John Doe', email: 'john@example.com', avatarUrl: 'https://via.placeholder.com/150'),
+                        assignee: User(id: '1', name: 'John Doe', email: 'john@example.com', avatarUrl: 'https://via.placeholder.com/150', role: ''),
                         tags: [],
+                    
                       );
-                      
                       setState(() {
                         _tasks.add(newTask);
                       });

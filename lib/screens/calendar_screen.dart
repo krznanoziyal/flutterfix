@@ -36,7 +36,7 @@ class _CalendarScreenState extends State<CalendarScreen>
     )..forward();
 
     // Initialize with sample events
-    _events = DataService.getCalendarEvents();
+    // _events = DataService.getCalendarEvents();
   }
 
   @override

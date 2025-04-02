@@ -100,7 +100,7 @@ class SideMenu extends StatelessWidget {
         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       accountEmail: Text(
-        user.role,
+        user.email,
         style: const TextStyle(fontWeight: FontWeight.w500),
       ),
     );

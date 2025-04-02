@@ -1,3 +1,4 @@
+import 'package:csxi_app/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/theme_service.dart';
@@ -31,9 +32,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     final themeService = Provider.of<ThemeService>(context);
     final theme = Theme.of(context);
+    User user = User(name: 'Guest', id: '', email: '', avatarUrl: '', role: ''); // Replace with actual user data if available
     
     return Scaffold(
-      appBar: CustomAppBar(title: 'Settings'),
+      appBar: CustomAppBar(title: 'Settings', user: user, onMenuTap: () {  },),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -57,9 +59,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         _useSystemTheme = value;
                         if (value) {
                           final brightness = MediaQuery.of(context).platformBrightness;
-                          themeService.setThemeMode(
-                            brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light
-                          );
+                          // themeService.setThemeMode(
+                          //   brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light
+                          // );
                         }
                       });
                     },
@@ -69,9 +71,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: SwitchListTile(
                       title: const Text('Dark mode'),
                       subtitle: const Text('Toggle between light and dark theme'),
-                      value: themeService.themeMode == ThemeMode.dark,
+                      value: themeService.isDarkMode == ThemeMode.dark,
                       onChanged: (value) {
-                        themeService.setThemeMode(value ? ThemeMode.dark : ThemeMode.light);
+                        // themeService.setThemeMode(value ? ThemeMode.dark : ThemeMode.light);
                       },
                     ),
                   ),

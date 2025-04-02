@@ -1,6 +1,5 @@
 // lib/widgets/cards/activity_card.dart
 import 'package:flutter/material.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class ActivityCard extends StatelessWidget {
   final List<Map<String, dynamic>> activities;

@@ -1,3 +1,4 @@
+import 'package:csxi_app/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:math';
@@ -122,9 +123,10 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    User user = User(id: "1", name: "A", email: "", avatarUrl: "", role: "", );
     
     return Scaffold(
-      appBar: CustomAppBar(title: 'Analytics'),
+      appBar: CustomAppBar(title: 'Analytics', user: user, onMenuTap: () {  },),
       body: _isLoading 
         ? const Center(child: CircularProgressIndicator())
         : SingleChildScrollView(
@@ -223,7 +225,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           change: '+${((lastMonthRevenue.revenue / _analyticsData.revenueData[_analyticsData.revenueData.length - 2].revenue - 1) * 100).toStringAsFixed(1)}%',
           isPositive: true,
           icon: Icons.attach_money,
-          color: Colors.green,
+          color: Colors.green, completed: 1, total: 100, percentage: 100,
         ),
         StatCard(
           title: 'Users',
@@ -232,6 +234,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           isPositive: true,
           icon: Icons.people,
           color: Colors.blue,
+          completed: 1, total: 100, percentage: 100,
         ),
         StatCard(
           title: 'Conversion Rate',
@@ -240,6 +243,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           isPositive: false,
           icon: Icons.swap_vert,
           color: Colors.orange,
+          completed: 1, total: 100, percentage: 100,
         ),
         StatCard(
           title: 'Avg Order Value',
@@ -248,6 +252,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           isPositive: true,
           icon: Icons.shopping_cart,
           color: Colors.purple,
+          completed: 1, total: 100, percentage: 100,
         ),
       ],
     );
@@ -290,25 +295,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             SizedBox(
               height: 300,
               child: CustomLineChart(
-                data: _analyticsData.revenueData.map((data) => FlSpot(
-                  data.month.millisecondsSinceEpoch.toDouble(),
-                  data.revenue / 1000, // Show in thousands
-                )).toList(),
-                secondaryData: _analyticsData.revenueData.map((data) => FlSpot(
-                  data.month.millisecondsSinceEpoch.toDouble(),
-                  data.expenses / 1000, // Show in thousands
-                )).toList(),
-                tertiaryData: _analyticsData.revenueData.map((data) => FlSpot(
-                  data.month.millisecondsSinceEpoch.toDouble(),
-                  data.profit / 1000, // Show in thousands
-                )).toList(),
-                lineColors: [Colors.green, Colors.red, Colors.blue],
-                lineLabels: ['Revenue', 'Expenses', 'Profit'],
-                showDots: false,
-                yAxisName: 'Amount (K)',
-                xAxisLabels: _analyticsData.revenueData.map((data) => 
-                  '${data.month.month}/${data.month.year.toString().substring(2)}'
-                ).toList(),
+                title: 'Revenue Chart', // Added required title parameter
+                data: []
               ),
             ),
           ],
@@ -341,37 +329,35 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
               height: 300,
               child: CustomBarChart(
                 data: _analyticsData.userData.map((data) => 
-                  BarChartGroupData(
-                    x: data.date.month, 
-                    barRods: [
-                      BarChartRodData(
-                        toY: data.newUsers.toDouble(),
-                        color: Colors.blue,
-                        width: 16,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(6),
-                        ),
-                      ),
-                      BarChartRodData(
-                        toY: data.activeUsers.toDouble(),
-                        color: Colors.green,
-                        width: 16,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(6),
-                        ),
+                  BarChartData(
+                    barGroups: [
+                      BarChartGroupData(
+                        x: data.date.month, 
+                        barRods: [
+                          BarChartRodData(
+                            toY: data.newUsers.toDouble(),
+                            color: Colors.blue,
+                            width: 16,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(6),
+                              topRight: Radius.circular(6),
+                            ),
+                          ),
+                          BarChartRodData(
+                            toY: data.activeUsers.toDouble(),
+                            color: Colors.green,
+                            width: 16,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(6),
+                              topRight: Radius.circular(6),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   )
                 ).toList(),
-                barLabels: ['New Users', 'Active Users'],
-                barColors: [Colors.blue, Colors.green],
-                xAxisLabels: _analyticsData.userData.map((data) => 
-                  '${data.date.month}/${data.date.year.toString().substring(2)}'
-                ).toList(),
-                showValues: false,
-                maxY: _analyticsData.userData.map((d) => d.activeUsers).reduce(max).toDouble() * 1.2,
+                title: '',
               ),
             ),
           ],
@@ -406,47 +392,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             SizedBox(
               height: 300,
               child: CustomBarChart(
-                data: recentTasks.asMap().entries.map((entry) => 
-                  BarChartGroupData(
-                    x: entry.key, 
-                    barRods: [
-                      BarChartRodData(
-                        toY: entry.value.created.toDouble(),
-                        color: Colors.blue,
-                        width: 16,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(6),
-                        ),
-                      ),
-                      BarChartRodData(
-                        toY: entry.value.completed.toDouble(),
-                        color: Colors.green,
-                        width: 16,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(6),
-                        ),
-                      ),
-                      BarChartRodData(
-                        toY: entry.value.overdue.toDouble(),
-                        color: Colors.red,
-                        width: 16,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(6),
-                        ),
-                      ),
-                    ],
-                  )
-                ).toList(),
-                barLabels: ['Created', 'Completed', 'Overdue'],
-                barColors: [Colors.blue, Colors.green, Colors.red],
-                xAxisLabels: recentTasks.map((data) => 
-                  '${data.date.day}/${data.date.month}'
-                ).toList(),
-                showValues: false,
-                maxY: recentTasks.map((d) => max(d.created, max(d.completed, d.overdue))).reduce(max).toDouble() * 1.2,
+                data: [], title: '',
               ),
             ),
           ],
@@ -486,13 +432,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             SizedBox(
               height: 300,
               child: CustomLineChart(
-                data: performanceData,
-                lineColors: [Colors.purple],
-                lineLabels: ['Load Time (s)'],
-                showDots: false,
-                yAxisName: 'Time (s)',
-                xAxisLabels: List.generate(24, (i) => '$i:00'),
-                showAllLabels: false,
+               data: [], title: '',
               ),
             ),
             const SizedBox(height: 16),
@@ -569,6 +509,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             SizedBox(
               height: 250,
               child: CustomPieChart(
+                title: 'Traffic Sources Breakdown', // Added required title parameter
                 sections: data.map((source) => PieChartSectionData(
                   color: _getColorForSource(source.source),
                   value: source.percentage,
@@ -579,8 +520,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
-                )).toList(),
-                centerText: 'Traffic',
+                )).toList(), data: [],
+                // centerText: 'Traffic',
               ),
             ),
             const SizedBox(height: 16),
